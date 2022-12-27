@@ -1,0 +1,28 @@
+@import "../global.scss";
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid $ecru;
+  padding-bottom: 8px;
+
+  &:last-child {
+    border: none;
+  }
+}
+
+.comment__header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.comment__header > p {
+  font-size: medium;
+}
+
+.comment__body > p {
+  text-align: left;
+  margin: 0;
+}
