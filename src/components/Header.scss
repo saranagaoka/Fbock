@@ -1,0 +1,107 @@
+@import "../global.scss";
+
+.header {
+  position: sticky;
+  top: 0px;
+  background-color: $dark-blue;
+  padding-bottom: 10px;
+  z-index: 2000;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__left {
+  display: flex;
+  width: 200px;
+  justify-content: space-between;
+  margin-left: 10px;
+  align-items: center;
+  flex: 0.3;
+}
+
+.header__left > .MuiSvgIcon-root {
+  color: $mid-blue;
+  font-size: 40px;
+}
+
+.header__search {
+  border-radius: 8px;
+  background-color: $light-blue;
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 30px;
+  margin-left: 30px;
+  @include mobile {
+    width: 120px;
+  }
+}
+
+.header__search > input {
+  outline: none;
+  border: none;
+  background: none;
+}
+
+.header__middle {
+  display: flex;
+  justify-content: space-evenly;
+  flex: 0.4;
+  margin-left: 30px;
+  @include mobile {
+    display: none;
+  }
+}
+
+.header__middle .MuiSvgIcon-root {
+  padding: 5px;
+}
+
+.header__middle .MuiSvgIcon-root:hover {
+  color: $ecru;
+  background-color: $mid-blue;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.header__right {
+  flex: 0.3;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  align-items: center;
+  padding: 8px;
+  margin-right: 16px;
+}
+
+.header__right .MuiSvgIcon-root {
+  padding: 5px;
+}
+
+.header__right .MuiSvgIcon-root:hover {
+  color: $ecru;
+  background-color: $mid-blue;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.header__logOut {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  font-size: small;
+  color: black;
+  padding: 2px;
+  &:hover {
+    background-color: $mid-blue;
+    border-radius: 10px;
+    padding: 2px;
+    color: $ecru;
+  }
+}

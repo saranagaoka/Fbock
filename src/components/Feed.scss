@@ -1,0 +1,20 @@
+@import "../global.scss";
+
+.feed {
+  flex: 0.5;
+  @include mobile {
+    flex: 1;
+  }
+}
+
+.feed__posts {
+  background-color: $mid-blue;
+  padding-top: 10px;
+  overflow-y: auto;
+}
+
+.feed__posts > div {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}

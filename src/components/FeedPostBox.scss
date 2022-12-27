@@ -1,0 +1,65 @@
+@import "../global.scss";
+
+.feedPostBox__wrapper {
+  position: sticky;
+  top: 68px;
+  background-color: $mid-blue;
+  padding: 30px 10px;
+  z-index: 2000;
+  border-bottom: 1px solid $dark-blue;
+}
+
+.feedPostBox {
+  background-color: $light-blue;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 20px;
+  width: calc(100% - 20px);
+  margin-left: 10px;
+}
+
+.feedPostBox input {
+  outline: none;
+  border: none;
+  background: none;
+  margin-left: 16px;
+  width: 100%;
+}
+
+.feedPostBox__pic {
+  color: $dark-blue;
+  outline: none;
+  border: none;
+  background: none;
+}
+
+.feedPostBox__send {
+  font-size: 600;
+  background-color: $dark-blue;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  margin-right: 8px;
+}
+
+.feedPostBox__buttons {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.feedPostBox__url {
+  outline: none;
+  border: none;
+  background: none;
+  width: 100px;
+}
+
+.feedPostBox > form {
+  flex: 1;
+}
+
+.feedPostBox__loading {
+  padding: 0 22px;
+}

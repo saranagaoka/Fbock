@@ -1,0 +1,21 @@
+$dark-blue: #3b5998;
+$mid-blue: #8b9dc3;
+$light-blue: #dfe3ee;
+$ecru: #f7f7f7;
+$white: #ffffff;
+
+button {
+  cursor: pointer;
+}
+
+@mixin mobile {
+  @media screen and (max-width: 860px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: 1300px) {
+    @content;
+  }
+}
