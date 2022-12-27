@@ -1,0 +1,36 @@
+@import "../global.scss";
+
+.messengerSidebarChat {
+  background: transparent;
+  width: 100%;
+  display: block;
+  border: none;
+  text-align: left;
+}
+
+.messengerSidebarChat__userChat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 10px;
+
+  &:hover {
+    background-color: $dark-blue;
+  }
+}
+.messengerSidebarChat__userChatInfo {
+  color: $ecru;
+  span {
+    font-size: 18px;
+    font-weight: 500;
+  }
+  p {
+    font-size: 14px;
+
+    margin: 0;
+    @include mobile {
+      display: none;
+    }
+  }
+}

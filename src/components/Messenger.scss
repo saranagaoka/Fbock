@@ -1,0 +1,15 @@
+@import "../global.scss";
+
+.messenger {
+  background-color: $light-blue;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.messenger__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}

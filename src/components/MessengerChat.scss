@@ -1,0 +1,19 @@
+@import "../global.scss";
+
+.messengerChat {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+.messengerChat__info {
+  height: 50px;
+  background-color: $dark-blue;
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  font-weight: bolder;
+  font-size: 24px;
+  color: $ecru;
+  gap: 12px;
+  flex: 0 0 60px;
+}

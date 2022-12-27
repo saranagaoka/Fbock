@@ -1,0 +1,46 @@
+@import "../global.scss";
+
+.messengerChatInput {
+  height: 50px;
+  background-color: $ecru;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  flex: 0 0;
+  justify-content: space-between;
+}
+
+.messengerChatInput > form {
+  width: 100%;
+}
+
+.messengerChatInput > form > input {
+  outline: none;
+  border: none;
+  background: none;
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+}
+
+.messengerChatInput__send {
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+  align-items: center;
+}
+
+.messengerChatInput__send > button {
+  border: none;
+  background: $light-blue;
+  border-radius: 16px;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+.messengerChatInput__send svg {
+  cursor: pointer;
+}
+
+.messengerChatInput__picture > img {
+  max-width: 20%;
+}

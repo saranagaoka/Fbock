@@ -1,0 +1,44 @@
+@import "../global.scss";
+
+.messengerSidebarNavbar {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $dark-blue;
+  height: 50px;
+  padding: 16px;
+  justify-content: space-between;
+  color: $ecru;
+}
+.messengerSidebarNavbar__logo {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+
+  svg {
+    cursor: pointer;
+  }
+}
+.messengerSidebarNavbar__logo > p {
+  @include mobile {
+    display: none;
+  }
+}
+
+.messengerSidebarNavbar__user {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.messengerSidebarNavbar__user > span {
+  @include mobile {
+    display: none;
+  }
+}
+.messengerSidebarNavbar__user img {
+  background-color: $light-blue;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}

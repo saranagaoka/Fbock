@@ -1,0 +1,42 @@
+@import "../global.scss";
+
+.messengerMessage,
+.messengerMessage__owner {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin: 8px 0;
+}
+
+.messengerMessage__owner {
+  flex-direction: row-reverse;
+}
+
+.messengerMessage__owner > .messengerMessage__content {
+  background-color: $dark-blue;
+  color: $ecru;
+}
+.messengerMessage__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 20px;
+}
+
+.messengerMessage__content {
+  max-width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: $ecru;
+  border-radius: 12px;
+  padding: 10px;
+  margin: 0;
+}
+.messengerMessage__content img {
+  width: 55%;
+}
+
+.messengerMessage__content > p {
+  margin: 0;
+}

@@ -1,0 +1,10 @@
+@import "../global.scss";
+
+.messengerMessages {
+  background-color: $light-blue;
+  padding: 10px;
+  flex: 1;
+  overflow-y: auto;
+  max-width: 100%;
+  word-break: break-word;
+}
