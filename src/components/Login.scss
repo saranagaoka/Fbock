@@ -39,12 +39,15 @@
   padding-bottom: 10px;
   border-radius: 50px;
   font-size: 15px;
-  margin-top: 16px;
+  margin: 8px 0;
+
+  &:first-of-type {
+    margin-top: 16px;
+  }
 }
 
 .login__register {
   color: $dark-blue;
-  text-decoration: underline;
   margin-left: 3px;
   cursor: pointer;
 }

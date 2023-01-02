@@ -97,13 +97,12 @@ function Login() {
         <button type="submit" onClick={loginToApp}>
           Sign in
         </button>
-      </form>
-      <div className="login__text">
-        Not a member?
-        <span className="login__register" onClick={register}>
+        <div className="login__text">Not a member?</div>
+        <button className="login__register" onClick={register}>
           Register now
-        </span>
-      </div>
+        </button>
+      </form>
+
       {/* <input type="file" accept="image/png, image/jpg" /> */}
     </div>
   );
