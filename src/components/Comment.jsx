@@ -1,9 +1,7 @@
 import React from "react";
 import "./Comment.scss";
-import { db } from "../firebase";
 import { useSelector } from "react-redux";
 import { selectUser } from "../features/userSlice";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Avatar from "@mui/material/Avatar";
 
 const Comment = ({ name, photoUrl, comment }) => {

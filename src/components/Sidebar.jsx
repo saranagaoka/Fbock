@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { db } from "../firebase";
 import { MessengerContext } from "../context/MessengerContext";
 
-const Sidebar = forwardRef(({}, ref) => {
+const Sidebar = forwardRef((_, ref) => {
   const user = useSelector(selectUser);
   const [users, setUsers] = useState([]);
   const [isOpen, setIsOpen] = useState(false);

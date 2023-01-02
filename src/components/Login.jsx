@@ -3,7 +3,6 @@ import "./Login.scss";
 import { auth, db, storage } from "../firebase";
 import { login } from "../features/userSlice";
 import { useDispatch } from "react-redux";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 function Login() {
   const [name, setName] = useState("");
@@ -61,7 +60,7 @@ function Login() {
     <div className="login">
       <h1>Hi :D Welcome to Fbock</h1>
       <p>
-        Login to your account by hitting "Sign in" button or enter data and hit
+        Log in to your account by hitting "Sign in" button or enter data and hit
         "Register now"
       </p>
       <p> Theeenks, Sara</p>
