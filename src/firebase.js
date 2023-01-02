@@ -14,12 +14,9 @@ const firebaseConfig = {
   measurementId: "G-38LN5FKY22",
 };
 
-// const storageRef = firebase.storage().ref();
-
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const db = firebaseApp.firestore();
 const auth = firebase.auth();
-// const storage = getStorage(firebaseApp, "gs://my-custom-bucket");
 
 export const storage = getStorage();
 export { db, auth };

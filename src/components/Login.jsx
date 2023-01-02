@@ -12,10 +12,6 @@ function Login() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch("");
 
-  // const storageRef = ref(storage, displayName);
-
-  // const uploadTask = uploadBytesResumable(storageRef, file);
-
   const register = () => {
     if (!name) {
       return alert("Please enter your name :)");

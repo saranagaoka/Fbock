@@ -33,7 +33,6 @@ function MessengerChatInput() {
         message: input,
         picture: picture || "",
         uid: user.uid,
-        // do wyjebania jak cos ale dopiero na koniec koniec koniec
         uid2: uid,
         docId: docId,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),

@@ -13,7 +13,7 @@ function MessengerSidebarChats() {
 
   const getChatsWithUsers = (condition, callBack) => {
     db.collection("messages")
-      .where("docId", condition, user.uid) //TODO: search for id at the end of docId
+      .where("docId", condition, user.uid)
       .get()
       .then((queriedDocId) => {
         callBack(queriedDocId.docs.map((doc) => doc.data().docId));
@@ -27,15 +27,6 @@ function MessengerSidebarChats() {
           setChatIds([...chats, ...chats2]);
         });
       });
-
-    // db
-    //   .collection("messages")
-    //   .where("docId", "<=", user.uid) //TODO: search for id at the end of docId
-    //   .get()
-    //   .then((queriedDocId) => {
-    //     setChatIds(queriedDocId.docs.map((doc) => doc.data().docId));
-
-    //   });
   }, [user]);
 
   return (
