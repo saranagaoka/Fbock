@@ -5,7 +5,7 @@
   top: 0px;
   background-color: $dark-blue;
   padding-bottom: 10px;
-  z-index: 2000;
+  z-index: 2001;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -35,9 +35,52 @@
   padding-right: 5px;
   height: 30px;
   margin-left: 30px;
+  position: relative;
+
   @include mobile {
     width: 120px;
   }
+}
+
+.header__searchbar {
+  position: absolute;
+  bottom: -10px;
+  transform: translate(0, 100%);
+  width: 100%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  left: -2px;
+  background-color: $ecru;
+  border-radius: 10px;
+
+  > :first-child button {
+    border-radius: 10px 10px 0 0;
+  }
+  > :last-child button {
+    border-radius: 0 0 10px 10px;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+}
+
+.header__searchUser {
+  display: flex;
+  width: 100%;
+  border: none;
+  background: transparent;
+
+  &:hover {
+    background-color: $light-blue;
+  }
+}
+
+.header__userChatInfo {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 0;
 }
 
 .header__search > input {
@@ -75,6 +118,10 @@
   align-items: center;
   padding: 8px;
   margin-right: 16px;
+
+  a {
+    color: black;
+  }
 }
 
 .header__right .MuiSvgIcon-root {

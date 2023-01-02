@@ -17,3 +17,24 @@
   gap: 12px;
   flex: 0 0 60px;
 }
+
+.messengerChat__noMessages {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  opacity: 0.2;
+  color: $dark-blue;
+
+  p {
+    font-size: xx-large;
+    font-weight: 600;
+    pointer-events: none;
+  }
+
+  svg {
+    width: 100px;
+    height: 100px;
+  }
+}

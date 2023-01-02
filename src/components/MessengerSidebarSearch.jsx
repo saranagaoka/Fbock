@@ -36,7 +36,7 @@ function MessengerSidebarSearch() {
     <div className="messengerSidebarSearch">
       <div className="messengerSidebarSearch__form">
         <SearchIcon />
-        <input type="text" placeholder="Znajdź ziomka" onChange={findUser} />
+        <input type="text" placeholder="Find a user" onChange={findUser} />
       </div>
 
       {users.map(({ id, data: { displayName, photoUrl, uid } }) => {

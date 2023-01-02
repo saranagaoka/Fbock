@@ -1,12 +1,15 @@
 $dark-blue: #3b5998;
 $mid-blue: #8b9dc3;
 $light-blue: #dfe3ee;
+$lighter-blue: #eaedf4;
 $ecru: #f7f7f7;
 $white: #ffffff;
 
 button {
   cursor: pointer;
 }
+
+@import url("https://fonts.googleapis.com/css2?family=Neucha&display=swap");
 
 @mixin mobile {
   @media screen and (max-width: 860px) {

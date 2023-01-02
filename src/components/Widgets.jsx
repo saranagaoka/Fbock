@@ -7,8 +7,7 @@ function Widgets() {
     <div className="widgets">
       <div className="widgets__messenger">
         <div className="widgets__header">
-          <p>Podcasty i inne</p>
-          <SearchIcon />
+          <p>Podcasts</p>
         </div>
         <div className="widgets__contacts">
           <iframe
