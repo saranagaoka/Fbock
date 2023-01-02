@@ -11,22 +11,16 @@ function MessengerSidebarChats() {
   const user = useSelector(selectUser);
   const [chatIds, setChatIds] = useState([]);
 
-  const getChatsWithUsers = (condition, callBack) => {
-    db.collection("messages")
-      .where("docId", condition, user.uid)
-      .get()
-      .then((queriedDocId) => {
-        callBack(queriedDocId.docs.map((doc) => doc.data().docId));
-      });
-  };
+  const filterChatIds = (chats) =>
+    chats.filter((chat) => chat.includes(user.uid));
 
   useEffect(() => {
     user &&
-      getChatsWithUsers("<=", (chats) => {
-        getChatsWithUsers(">=", (chats2) => {
-          setChatIds([...chats, ...chats2]);
-        });
-      });
+      db
+        .collection("messages")
+        .onSnapshot((snapshot) =>
+          setChatIds(filterChatIds(snapshot.docs.map((doc) => doc.id)))
+        );
   }, [user]);
 
   return (

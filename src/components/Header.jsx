@@ -12,6 +12,7 @@ import { logout, selectUser } from "../features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { MessengerContext } from "../context/MessengerContext";
+import logo from "../images/solidarity.png";
 
 function Header() {
   const user = useSelector(selectUser);
@@ -60,7 +61,8 @@ function Header() {
   return (
     <div className="header">
       <div className="header__left">
-        <FiberManualRecordIcon />
+        <img width={30} height={30} src={logo} alt="app icon" />
+        {/* <FiberManualRecordIcon /> */}
         <div className="header__search">
           <SearchIcon />
           <input type="text" placeholder="Search" onChange={findUser} />
