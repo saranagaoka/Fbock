@@ -46,6 +46,7 @@
 
 .post__body > img {
   padding-top: 8px;
+  margin-bottom: -90px;
   width: 100%;
   z-index: 1;
   position: relative;
@@ -60,7 +61,6 @@
 
 .post__message.post__displayPicture {
   background: linear-gradient(180deg, transparent -30px, $ecru 70px);
-  margin-top: -90px;
   z-index: 1000;
   display: block;
   position: relative;
