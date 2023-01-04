@@ -54,7 +54,7 @@ function FeedPostBox() {
             <input
               className="feedPostBox__url"
               type="text"
-              placeholder="Optional pic URL"
+              placeholder="Optional picture URL"
               value={picture}
               onChange={(e) => setPicture(e.target.value)}
             />
