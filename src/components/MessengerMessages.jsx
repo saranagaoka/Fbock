@@ -16,7 +16,6 @@ function MessengerMessages() {
       .collection("messages")
       .doc(docId)
       .collection("chat")
-      // .limitToLast(10)
       .orderBy("timestamp", "asc")
       .onSnapshot((snapshot) => {
         setMessages(
