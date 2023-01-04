@@ -7,31 +7,38 @@
   position: sticky;
   top: 68px;
   height: calc(100% - 68px);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  font-size: large;
+  margin: 0;
 
   @include mobile {
     display: none;
   }
 }
 
-.widgets__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: large;
-  margin: 0 16px;
-  border-bottom: 1px solid $mid-blue;
+.widgets > p {
+  font-size: larger;
+  font-weight: 600;
+  color: $dark-blue;
+
+  &:hover {
+    cursor: default;
+  }
 }
 
-.widgets__contacts iframe {
+.widgets__podcastsSection iframe {
   width: 100% !important;
   height: 80px !important;
 }
-.widgets__contacts {
+.widgets__podcastsSection {
   display: flex;
   flex-direction: column;
   gap: 16px;
   margin-top: 8px;
 }
-.widgets__contacts > iframe:first-child {
+.widgets__podcastsSection > iframe:first-child {
   height: 150px !important;
 }

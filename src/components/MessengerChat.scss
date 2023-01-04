@@ -4,7 +4,12 @@
   flex: 2;
   display: flex;
   flex-direction: column;
+
+  .messagesScroll {
+    height: calc(100% - 152px);
+  }
 }
+
 .messengerChat__info {
   height: 50px;
   background-color: $dark-blue;

@@ -3,61 +3,66 @@ import MessengerMessage from "./MessengerMessage";
 import "./MessengerMessages.scss";
 import { db } from "../firebase";
 import { MessengerContext } from "../context/MessengerContext";
+import ScrollToBottom, { useScrollToBottom } from "react-scroll-to-bottom";
 
 function MessengerMessages() {
   const [messages, setMessages] = useState([]);
-  const { docId } = useContext(MessengerContext);
+  const { docId, unsubscribe, setUnsubscribe } = useContext(MessengerContext);
+  const scrollToBottom = useScrollToBottom();
 
-  useEffect(() => {
-    db.collection("messages")
+  const getData = () => {
+    unsubscribe && unsubscribe();
+    let unsub = db
+      .collection("messages")
       .doc(docId)
       .collection("chat")
+      // .limitToLast(10)
       .orderBy("timestamp", "asc")
-      .onSnapshot((snapshot) =>
+      .onSnapshot((snapshot) => {
         setMessages(
           snapshot.docs.map((doc) => ({
             id: doc.id,
             data: doc.data(),
           }))
-        )
-      );
-  }, [docId]);
-
-  const messagesEndRef = useRef(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        );
+      });
+    setUnsubscribe(() => unsub);
   };
+
+  useEffect(() => {
+    getData();
+  }, [docId]);
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
   return (
-    <div className="messengerMessages">
-      {messages.length > 0 ? (
-        messages.map(
-          ({
-            id,
-            data: { name, message, photoUrl, picture, timestamp, uid },
-          }) =>
-            timestamp && (
-              <MessengerMessage
-                key={id}
-                name={name}
-                message={message}
-                photoUrl={photoUrl}
-                picture={picture}
-                timestamp={timestamp}
-                uid={uid}
-              />
-            )
-        )
-      ) : (
-        <p>no messages</p>
-      )}
-      <div ref={messagesEndRef} />
-    </div>
+    <ScrollToBottom className="messagesScroll">
+      <div className="messengerMessages">
+        {messages.length > 0 ? (
+          messages.map(
+            ({
+              id,
+              data: { name, message, photoUrl, picture, timestamp, uid },
+            }) =>
+              timestamp && (
+                <MessengerMessage
+                  key={id}
+                  name={name}
+                  message={message}
+                  photoUrl={photoUrl}
+                  picture={picture}
+                  timestamp={timestamp}
+                  uid={uid}
+                />
+              )
+          )
+        ) : (
+          <p>no messages</p>
+        )}
+      </div>
+    </ScrollToBottom>
   );
 }
 

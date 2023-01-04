@@ -54,6 +54,10 @@
   text-align: left;
 }
 
+.post__comments {
+  width: 100%;
+}
+
 .post__message.post__displayPicture {
   background: linear-gradient(180deg, transparent -30px, $ecru 70px);
   margin-top: -90px;

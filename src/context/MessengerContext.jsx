@@ -11,12 +11,15 @@ export const MessengerContext = createContext({
   docId: "",
   setDocId: () => {},
   resetUser: () => {},
+  unsubscribe: () => {},
+  setUnsubscribe: () => {},
 });
 export const MessengerProvider = ({ children }) => {
   const [name, setName] = useState("");
   const [profilePic, setProfilePic] = useState("");
   const [uid, setUid] = useState("");
   const [docId, setDocId] = useState("");
+  const [unsubscribe, setUnsubscribe] = useState(() => {});
 
   const resetUser = () => {
     setName("");
@@ -37,6 +40,8 @@ export const MessengerProvider = ({ children }) => {
         docId: docId,
         setDocId: setDocId,
         resetUser: resetUser,
+        unsubscribe: unsubscribe,
+        setUnsubscribe: setUnsubscribe,
       }}
     >
       {children}

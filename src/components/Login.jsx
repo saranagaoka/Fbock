@@ -29,7 +29,7 @@ function Login() {
                 photoUrl: profilePic,
               })
             );
-            db.collection("users").add({
+            db.collection("users").doc(userAuth.user.uid).set({
               uid: userAuth.user.uid,
               displayName: name,
               photoUrl: profilePic,

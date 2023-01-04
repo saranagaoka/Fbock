@@ -78,3 +78,33 @@
   justify-content: center;
   align-items: center;
 }
+
+.sidebar__openProfile {
+  display: flex;
+  justify-content: center;
+  background-color: $lighter-blue;
+  align-items: center;
+  gap: 16px;
+}
+.sidebar__openProfile > form {
+  flex: 1;
+  margin-right: 8px;
+}
+
+.sidebar__openProfile input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  padding: 8px 16px;
+}
+
+.sidebar__openProfile button {
+  border: none;
+  background-color: $mid-blue;
+  border-radius: 10px;
+  color: $ecru;
+  padding: 4px 8px;
+
+  margin-right: 8px;
+}

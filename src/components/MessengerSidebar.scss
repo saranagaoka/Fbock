@@ -3,8 +3,8 @@
 .messengerSidebar {
   flex: 1;
   background-color: $mid-blue;
+  max-width: 30%;
   @include mobile {
-    max-width: 30%;
     padding-right: 8px;
   }
 }

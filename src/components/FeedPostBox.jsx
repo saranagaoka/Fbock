@@ -30,6 +30,8 @@ function FeedPostBox() {
       .then(() => {
         setInput("");
         setLoading(false);
+        setPicture("");
+        setDisplayPictureUrl(false);
       });
   };
 

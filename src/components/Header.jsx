@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import "./Header.scss";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
@@ -62,7 +61,6 @@ function Header() {
     <div className="header">
       <div className="header__left">
         <img width={30} height={30} src={logo} alt="app icon" />
-        {/* <FiberManualRecordIcon /> */}
         <div className="header__search">
           <SearchIcon />
           <input type="text" placeholder="Search" onChange={findUser} />

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./MessengerSidebarSearch.scss";
 import Avatar from "@mui/material/Avatar";
 import SearchIcon from "@mui/icons-material/Search";
@@ -9,12 +9,16 @@ import { selectUser } from "../features/userSlice";
 
 function MessengerSidebarSearch() {
   const [users, setUsers] = useState([]);
+  const [inputValue, setInputValue] = useState("");
   const { setName, setProfilePic, setUid, setDocId } =
     useContext(MessengerContext);
   const user = useSelector(selectUser);
 
   const findUser = (e) => {
-    const inputValue = e.target.value;
+    setInputValue(e.target.value);
+  };
+
+  useEffect(() => {
     inputValue
       ? db
           .collection("users")
@@ -30,13 +34,18 @@ function MessengerSidebarSearch() {
             );
           })
       : setUsers([]);
-  };
+  }, [inputValue]);
 
   return (
     <div className="messengerSidebarSearch">
       <div className="messengerSidebarSearch__form">
         <SearchIcon />
-        <input type="text" placeholder="Find a user" onChange={findUser} />
+        <input
+          type="text"
+          placeholder="Find a user"
+          onChange={findUser}
+          value={inputValue}
+        />
       </div>
 
       {users.map(({ id, data: { displayName, photoUrl, uid } }) => {
@@ -45,6 +54,7 @@ function MessengerSidebarSearch() {
           setProfilePic(photoUrl);
           setUid(uid);
           setDocId([user?.uid, uid].sort().join(""));
+          setInputValue("");
         };
 
         return (

@@ -3,15 +3,20 @@ import "./Sidebar.scss";
 import Avatar from "@mui/material/Avatar";
 import Diversity1Icon from "@mui/icons-material/Diversity1";
 import { useSelector } from "react-redux";
-import { selectUser } from "../features/userSlice";
+import { selectUser, update } from "../features/userSlice";
 import { Link } from "react-router-dom";
 import { db } from "../firebase";
 import { MessengerContext } from "../context/MessengerContext";
+import { useDispatch } from "react-redux";
 
 const Sidebar = forwardRef((_, ref) => {
   const user = useSelector(selectUser);
+  const dispatch = useDispatch("");
   const [users, setUsers] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [openProfile, setOpenProfile] = useState(false);
+  const [profilePhoto, setProfilePhoto] = useState("");
+
   const { setDocId, setName, setProfilePic, setUid } =
     useContext(MessengerContext);
 
@@ -37,14 +42,44 @@ const Sidebar = forwardRef((_, ref) => {
     setUid(us.data.uid);
   };
 
+  const openProfileSettings = () => {
+    setOpenProfile((prev) => !prev);
+  };
+
+  const sendUpdatedPhotoToFirebase = (e) => {
+    e.preventDefault();
+    db.collection("users")
+      .doc(user.uid)
+      .update({ photoUrl: profilePhoto })
+      .then(() => {
+        dispatch(update({ photoUrl: profilePhoto }));
+      });
+    setProfilePhoto("");
+  };
+
   return (
     <div className="sidebar" ref={ref}>
-      <div className="sidebar__item">
+      <button className="sidebar__item" onClick={openProfileSettings}>
         <div className="sidebar__itemIcon">
           <Avatar src={user?.photoUrl}>{user.email[0]}</Avatar>
         </div>
         <h3>{user.displayName}</h3>
-      </div>
+      </button>
+      {openProfile && (
+        <div className="sidebar__openProfile">
+          <form onSubmit={sendUpdatedPhotoToFirebase}>
+            <input
+              type="text"
+              placeholder="Picture URL"
+              value={profilePhoto}
+              onChange={(e) => {
+                setProfilePhoto(e.target.value);
+              }}
+            />
+          </form>
+          <button onClick={sendUpdatedPhotoToFirebase}>save</button>
+        </div>
+      )}
       <button className="sidebar__item" onClick={getUsers}>
         <div className="sidebar__itemIcon">
           <Diversity1Icon />

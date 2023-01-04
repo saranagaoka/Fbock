@@ -25,4 +25,6 @@
 .comment__body > p {
   text-align: left;
   margin: 0;
+  word-wrap: break-word;
+  width: 100%;
 }

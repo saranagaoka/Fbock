@@ -2,8 +2,10 @@
 
 .feed {
   flex: 0.5;
+  max-width: calc(50% - 16px);
   @include mobile {
     flex: 1;
+    max-width: none;
   }
 }
 
