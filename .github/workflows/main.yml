@@ -14,9 +14,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Set up Git
         run: |
           git config --global user.name 'github-actions'
+
       - name: Create Tag
         id: create_tag
         env:
@@ -41,7 +43,7 @@ jobs:
           fi
           NEW_VERSION="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.${VERSION_PARTS[2]}"
           NEW_TAG="$VERSION_PREFIX$NEW_VERSION"
-          while git rev-parse "$NEW_TAG" >/dev/null 2>&1
+          while ! git rev-parse "$NEW_TAG" >/dev/null 2>&1
           do
             echo "$NEW_TAG already exists"
             VERSION_PARTS[2]=$((VERSION_PARTS[2] + 1))
@@ -50,4 +52,16 @@ jobs:
           done
           echo "NEW_TAG: $NEW_TAG"
           git tag $NEW_TAG || (echo "Failed to create tag" && exit 1)
-          git push origin $NEW_TAG || (echo "Failed to push tag" && exit 
+          git push origin $NEW_TAG || (echo "Failed to push tag" && exit 1)
+          echo "::set-output name=TAG_NAME::$NEW_TAG"
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.create_tag.outputs.TAG_NAME }}
+          release_name: Release ${{ steps.create_tag.outputs.TAG_NAME }}
+          draft: false
+          prerelease: false
