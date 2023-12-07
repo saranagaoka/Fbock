@@ -23,7 +23,7 @@ jobs:
         id: create_tag
         run: |
           VERSION_PREFIX="v"
-          CURRENT_TAG=$(git describe --tags --abbrev=0)
+          CURRENT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "${VERSION_PREFIX}0.0.0")
           CURRENT_VERSION=${CURRENT_TAG#$VERSION_PREFIX}
           IFS='.' read -ra VERSION_PARTS <<< "$CURRENT_VERSION"
           if [[ "${{ github.ref }}" == "refs/heads/prod" ]]; then
