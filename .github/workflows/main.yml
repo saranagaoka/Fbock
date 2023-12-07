@@ -3,9 +3,9 @@ name: Create Tag
 on:
   push:
     branches:
+      - master
       - prod
       - dev
-      - master
 
 jobs:
   build:
@@ -28,7 +28,7 @@ jobs:
           echo "CURRENT_TAG: $CURRENT_TAG"
           CURRENT_VERSION=${CURRENT_TAG#$VERSION_PREFIX}
           IFS='.' read -ra VERSION_PARTS <<< "$CURRENT_VERSION"
-          if [[ "${{ github.ref }}" == "refs/heads/prod" ]]; then
+          if [[ "${{ github.ref }}" == "refs/heads/prod" || "${{ github.ref }}" == "refs/heads/master" ]]; then
             ((VERSION_PARTS[0]++))
             VERSION_PARTS[1]=0
             VERSION_PARTS[2]=0
