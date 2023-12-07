@@ -14,54 +14,37 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-      - name: Set up Git
-        run: |
-          git config --global user.name 'github-actions'
-
-      - name: Create Tag
-        id: create_tag
+      - name: Bump version and push tag
         env:
           GITHUB_REF: ${{ github.ref }}
         run: |
-          set -x
-          VERSION_PREFIX="v"
-          CURRENT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "${VERSION_PREFIX}0.0.0")
-          echo "CURRENT_TAG: $CURRENT_TAG"
-          CURRENT_VERSION=${CURRENT_TAG#$VERSION_PREFIX}
-          IFS='.' read -ra VERSION_PARTS <<< "$CURRENT_VERSION"
-          echo "VERSION_PARTS: ${VERSION_PARTS[@]}"
-          if [[ "$GITHUB_REF" == 'refs/heads/prod' ]]; then
-            VERSION_PARTS[0]=$((VERSION_PARTS[0] + 1))
-            VERSION_PARTS[1]=0
-            VERSION_PARTS[2]=0
-          elif [[ "$GITHUB_REF" == 'refs/heads/master' ]]; then
-            VERSION_PARTS[2]=$((VERSION_PARTS[2] + 1))
-          else
-            VERSION_PARTS[1]=$((VERSION_PARTS[1] + 1))
-            VERSION_PARTS[2]=0
-          fi
-          NEW_VERSION="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.${VERSION_PARTS[2]}"
-          NEW_TAG="$VERSION_PREFIX$NEW_VERSION"
-          NEW_TAG_EXISTS=$(git tag -l "$NEW_TAG")
-          while [[ -n $NEW_TAG_EXISTS ]]; do
-            VERSION_PARTS[2]=$((VERSION_PARTS[2] + 1))
-            NEW_VERSION="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.${VERSION_PARTS[2]}"
-            NEW_TAG="$VERSION_PREFIX$NEW_VERSION"
-            NEW_TAG_EXISTS=$(git tag -l "$NEW_TAG")
-          done
-          echo "NEW_TAG: $NEW_TAG"
-          git tag $NEW_TAG || (echo "Failed to create tag" && exit 1)
-          git push origin $NEW_TAG || (echo "Failed to push tag" && exit 1)
-          echo "::set-output name=TAG_NAME::$NEW_TAG"
-      
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.create_tag.outputs.TAG_NAME }}
-          release_name: Release ${{ steps.create_tag.outputs.TAG_NAME }}
-          draft: false
-          prerelease: false
+          git fetch --tags
+          TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          
+          IFS='.' read -ra VERSION_PARTS <<< "${TAG:1}"
+          MAJOR=${VERSION_PARTS[0]}
+          MINOR=${VERSION_PARTS[1]}
+          PATCH=${VERSION_PARTS[2]}
+
+          case "${GITHUB_REF}" in
+            'refs/heads/prod')
+              MAJOR=$((MAJOR + 1))
+              ;;
+            'refs/heads/dev')
+              MINOR=$((MINOR + 1))
+              ;;
+            'refs/heads/master')
+              PATCH=$((PATCH + 1))
+              ;;
+          esac
+
+          NEW_TAG="v$MAJOR.$MINOR.$PATCH"
+
+          echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git tag $NEW_TAG
+          git push origin $NEW_TAG
