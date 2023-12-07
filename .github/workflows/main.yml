@@ -28,6 +28,7 @@ jobs:
           echo "CURRENT_TAG: $CURRENT_TAG"
           CURRENT_VERSION=${CURRENT_TAG#$VERSION_PREFIX}
           IFS='.' read -ra VERSION_PARTS <<< "$CURRENT_VERSION"
+          VERSION_PARTS=("${VERSION_PARTS[@]/#/}")
           echo "VERSION_PARTS: ${VERSION_PARTS[@]}"
           if [[ "${{ github.ref }}" == "refs/heads/prod" || "${{ github.ref }}" == "refs/heads/master" ]]; then
             ((VERSION_PARTS[0]++))
