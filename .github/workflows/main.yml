@@ -44,7 +44,7 @@ jobs:
           NEW_VERSION="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.${VERSION_PARTS[2]}"
           NEW_TAG="$VERSION_PREFIX$NEW_VERSION"
           if git rev-parse "$NEW_TAG" >/dev/null 2>&1; then
-            while git rev-parse "$NEW_TAG" >/dev/null 2>&1; do
+            until ! git rev-parse "$NEW_TAG" >/dev/null 2>&1; do
               VERSION_PARTS[2]=$((VERSION_PARTS[2] + 1))
               NEW_VERSION="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.${VERSION_PARTS[2]}"
               NEW_TAG="$VERSION_PREFIX$NEW_VERSION"
