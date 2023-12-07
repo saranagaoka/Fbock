@@ -10,10 +10,7 @@ on:
 jobs:
   build:
     name: Create Tag
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -30,14 +27,14 @@ jobs:
           CURRENT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "${VERSION_PREFIX}0.0.0")
           echo "CURRENT_TAG: $CURRENT_TAG"
           CURRENT_VERSION=${CURRENT_TAG#$VERSION_PREFIX}
-          VERSION_PARTS=($(echo "$CURRENT_VERSION" | tr "." "\n"))
+          IFS='.' read -ra VERSION_PARTS <<< "$CURRENT_VERSION"
           echo "VERSION_PARTS: ${VERSION_PARTS[@]}"
           if [[ "${{ github.ref }}" == "refs/heads/prod" || "${{ github.ref }}" == "refs/heads/master" ]]; then
-            ((VERSION_PARTS[0]++))
+            VERSION_PARTS[0]=$((VERSION_PARTS[0] + 1))
             VERSION_PARTS[1]=0
             VERSION_PARTS[2]=0
           else
-            ((VERSION_PARTS[1]++))
+            VERSION_PARTS[1]=$((VERSION_PARTS[1] + 1))
             VERSION_PARTS[2]=0
           fi
           NEW_VERSION="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.${VERSION_PARTS[2]}"
@@ -53,7 +50,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.create_tag.outputs.TAG_NAME }}
-          release_name: Release ${{ steps.create_tag.outputs.TAG_NAME }}
-          draft: false
-          prerelease: false
+          tag_name: ${{ steps
