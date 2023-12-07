@@ -22,6 +22,7 @@ jobs:
       - name: Create Tag
         id: create_tag
         run: |
+          set -x
           VERSION_PREFIX="v"
           CURRENT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "${VERSION_PREFIX}0.0.0")
           echo "CURRENT_TAG: $CURRENT_TAG"
