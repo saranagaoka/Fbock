@@ -29,10 +29,12 @@ jobs:
           CURRENT_VERSION=${CURRENT_TAG#$VERSION_PREFIX}
           IFS='.' read -ra VERSION_PARTS <<< "$CURRENT_VERSION"
           echo "VERSION_PARTS: ${VERSION_PARTS[@]}"
-          if [[ "${{ github.ref }}" == 'refs/heads/prod' || "${{ github.ref }}" == 'refs/heads/master' ]]; then
+          if [[ "${{ github.ref }}" == 'refs/heads/prod' ]]; then
             VERSION_PARTS[0]=$((VERSION_PARTS[0] + 1))
             VERSION_PARTS[1]=0
             VERSION_PARTS[2]=0
+          elif [[ "${{ github.ref }}" == 'refs/heads/master' ]]; then
+            VERSION_PARTS[2]=$((VERSION_PARTS[2] + 1))
           else
             VERSION_PARTS[1]=$((VERSION_PARTS[1] + 1))
             VERSION_PARTS[2]=0
@@ -40,7 +42,7 @@ jobs:
           NEW_VERSION="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.${VERSION_PARTS[2]}"
           NEW_TAG="$VERSION_PREFIX$NEW_VERSION"
           NEW_TAG_EXISTS=$(git tag -l "$NEW_TAG")
-          while [[ $NEW_TAG_EXISTS ]]; do
+          while [[ -n $NEW_TAG_EXISTS ]]; do
             VERSION_PARTS[2]=$((VERSION_PARTS[2] + 1))
             NEW_VERSION="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.${VERSION_PARTS[2]}"
             NEW_TAG="$VERSION_PREFIX$NEW_VERSION"
@@ -55,9 +57,3 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.create_tag.outputs.TAG_NAME }}
-          release_name: Release ${{ steps.create_tag.outputs.TAG_NAME }}
-          draft: false
-          prerelease: false
