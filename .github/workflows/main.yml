@@ -43,7 +43,7 @@ jobs:
           fi
           NEW_VERSION="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.${VERSION_PARTS[2]}"
           NEW_TAG="$VERSION_PREFIX$NEW_VERSION"
-          until ! git rev-parse "$NEW_TAG" >/dev/null 2>&1
+          while git rev-parse "$NEW_TAG" >/dev/null 2>&1
           do
             echo "$NEW_TAG already exists"
             VERSION_PARTS[2]=$((VERSION_PARTS[2] + 1))
