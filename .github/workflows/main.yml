@@ -24,6 +24,7 @@ jobs:
         run: |
           VERSION_PREFIX="v"
           CURRENT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "${VERSION_PREFIX}0.0.0")
+          echo "CURRENT_TAG: $CURRENT_TAG"
           CURRENT_VERSION=${CURRENT_TAG#$VERSION_PREFIX}
           IFS='.' read -ra VERSION_PARTS <<< "$CURRENT_VERSION"
           if [[ "${{ github.ref }}" == "refs/heads/prod" ]]; then
@@ -36,8 +37,9 @@ jobs:
           fi
           NEW_VERSION="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.${VERSION_PARTS[2]}"
           NEW_TAG="$VERSION_PREFIX$NEW_VERSION"
+          echo "NEW_TAG: $NEW_TAG"
           git tag $NEW_TAG
-          git push origin $NEW_TAG
+          git push origin $NEW_TAG || echo "Failed to push tag"
           echo ::set-output name=TAG_NAME::$NEW_TAG
       
       - name: Create Release
