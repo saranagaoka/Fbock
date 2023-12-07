@@ -29,7 +29,7 @@ jobs:
           CURRENT_VERSION=${CURRENT_TAG#$VERSION_PREFIX}
           IFS='.' read -ra VERSION_PARTS <<< "$CURRENT_VERSION"
           echo "VERSION_PARTS: ${VERSION_PARTS[@]}"
-          if [[ "${{ github.ref }}" == "refs/heads/prod" || "${{ github.ref }}" == "refs/heads/master" ]]; then
+          if [[ "${{ github.ref }}" == 'refs/heads/prod' || "${{ github.ref }}" == 'refs/heads/master' ]]; then
             VERSION_PARTS[0]=$((VERSION_PARTS[0] + 1))
             VERSION_PARTS[1]=0
             VERSION_PARTS[2]=0
@@ -42,7 +42,7 @@ jobs:
           echo "NEW_TAG: $NEW_TAG"
           git tag $NEW_TAG || (echo "Failed to create tag" && exit 1)
           git push origin $NEW_TAG || (echo "Failed to push tag" && exit 1)
-          echo ::set-output name=TAG_NAME::$NEW_TAG
+          echo "::set-output name=TAG_NAME::$NEW_TAG"
       
       - name: Create Release
         id: create_release
@@ -50,4 +50,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps
+          tag_name: ${{ steps.create_tag.outputs.TAG_NAME }}
+          release_name: Release ${{ steps.create_tag.outputs.TAG_NAME }}
+          draft: false
+          prerelease: false
