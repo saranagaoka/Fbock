@@ -43,13 +43,13 @@ jobs:
           fi
           NEW_VERSION="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.${VERSION_PARTS[2]}"
           NEW_TAG="$VERSION_PREFIX$NEW_VERSION"
-          NEW_TAG_EXISTS=$(git tag -l "$NEW_TAG")
-          while [[ -n $NEW_TAG_EXISTS ]]; do
-            VERSION_PARTS[2]=$((VERSION_PARTS[2] + 1))
-            NEW_VERSION="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.${VERSION_PARTS[2]}"
-            NEW_TAG="$VERSION_PREFIX$NEW_VERSION"
-            NEW_TAG_EXISTS=$(git tag -l "$NEW_TAG")
-          done
+          if git rev-parse "$NEW_TAG" >/dev/null 2>&1; then
+            while git rev-parse "$NEW_TAG" >/dev/null 2>&1; do
+              VERSION_PARTS[2]=$((VERSION_PARTS[2] + 1))
+              NEW_VERSION="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.${VERSION_PARTS[2]}"
+              NEW_TAG="$VERSION_PREFIX$NEW_VERSION"
+            done
+          fi
           echo "NEW_TAG: $NEW_TAG"
           git tag $NEW_TAG || (echo "Failed to create tag" && exit 1)
           git push origin $NEW_TAG || (echo "Failed to push tag" && exit 1)
